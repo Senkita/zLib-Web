@@ -1,29 +1,18 @@
-# README #
+# zLib-Web
 
-This README would normally document whatever steps are necessary to get your application up and running.
+## Introduction
 
-### What is this repository for? ###
+自写一个[zlib-searcher](https://github.com/zu1k/zlib-searcher)的 Web UI。
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+## Maintainers
 
-### How do I get set up? ###
+[Senkita](https://github.com/Senkita)
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+## Licenses
 
-### Contribution guidelines ###
+[MIT](LICENSE) &copy;
+[Senkita](https://github.com/Senkita)
 
-* Writing tests
-* Code review
-* Other guidelines
+## References
 
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+-   [zlib-searcher](https://github.com/zu1k/zlib-searcher)

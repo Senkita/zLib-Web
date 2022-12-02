@@ -6,6 +6,8 @@
 # Node artifact files
 node_modules/
 dist/
+dist-ssr
+*.local
 
 # Compiled Java class files
 *.class
@@ -15,6 +17,12 @@ dist/
 
 # Log files
 *.log
+logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # Package files
 *.jar
@@ -48,3 +56,13 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
