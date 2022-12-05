@@ -21,7 +21,8 @@
             "@images/*": ["assets/images/*"],
             "@routes": ["src/routes"],
             "@utils": ["src/utils"],
-            "@stores": ["src/stores"],
+            "@ctx": ["src/hooks/ctx"],
+            "@reducers": ["src/hooks/reducers"],
             "@intf": ["src/intf"],
             "@views/*": ["src/views/*"],
             "@components/*": ["src/components/*"]

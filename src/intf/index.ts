@@ -1,23 +1,7 @@
-interface IBookInfo {
-    id: number;
-    title: string;
-    author: string;
-    publisher: string;
-    extension: string;
-    filesize: number;
-    language: string;
-    year: number;
-    pages: number;
-    isbn: string;
-    ipfs_cid: string;
-}
+import { extensionOpt, IAdvSearchCtx, IAdvSearchState } from "./advSearch";
+import { IBook, IBookCtx, IBookState } from "./books";
 
-interface IBooksResultState {
-    books: Array<IBookInfo>;
-}
+const minWidth: string = "375px";
 
-interface IBooksResultAction extends IBooksResultState {
-    type: string;
-}
-
-export type { IBookInfo, IBooksResultState, IBooksResultAction };
+export { extensionOpt, minWidth };
+export type { IAdvSearchState, IAdvSearchCtx, IBook, IBookState, IBookCtx };

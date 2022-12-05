@@ -11,7 +11,8 @@ export default defineConfig({
             "@images": resolve(__dirname, "assets/images"),
             "@routes": resolve(__dirname, "src/routes"),
             "@utils": resolve(__dirname, "src/utils"),
-            "@stores": resolve(__dirname, "src/stores"),
+            "@ctx": resolve(__dirname, "src/hooks/ctx"),
+            "@reducers": resolve(__dirname, "src/hooks/reducers"),
             "@intf": resolve(__dirname, "src/intf"),
             "@views": resolve(__dirname, "src/views"),
             "@components": resolve(__dirname, "src/components"),
@@ -19,10 +20,10 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            "/search": {
+            "/api": {
                 target: "http://BACKEND_DOAMIN/search",
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/search/, ""),
+                rewrite: (path) => path.replace(/^\/api/, "/search"),
             },
         },
     },

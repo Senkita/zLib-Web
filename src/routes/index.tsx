@@ -1,36 +1,31 @@
-import ErrorPage from "@views/ErrorPage";
-import HomePage from "@views/HomePage";
+import Home from "@views/Home";
+import NotFound from "@views/NotFound";
 import RootLayout from "@views/RootLayout";
-import { useRoutes } from "react-router-dom";
+import { RouteObject, useRoutes } from "react-router-dom";
 
 /**
  * 路由表
  *
- * @return {*}  {(React.ReactElement<
- *     any,
- *     string | React.JSXElementConstructor<any>
- * > | null)}
+ *  @type {*}
  */
-const RouteTable: () => React.ReactElement<
-    any,
-    string | React.JSXElementConstructor<any>
-> | null = (): React.ReactElement<
-    any,
-    string | React.JSXElementConstructor<any>
-> | null => {
-    return useRoutes([
-        {
-            path: "/",
-            element: <RootLayout />,
-            errorElement: <ErrorPage />,
-            children: [
-                {
-                    index: true,
-                    element: <HomePage />,
-                },
-            ],
-        },
-    ]);
-};
+const routes: RouteObject[] = [
+    {
+        path: "/",
+        element: <RootLayout />,
+        children: [
+            {
+                index: true,
+                element: <Home />,
+            },
+        ],
+    },
+    {
+        path: "*",
+        element: <NotFound />,
+    },
+];
 
-export default RouteTable;
+export default (): React.ReactElement<
+    any,
+    string | React.JSXElementConstructor<any>
+> | null => useRoutes(routes);

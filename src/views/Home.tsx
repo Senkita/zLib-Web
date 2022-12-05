@@ -1,21 +1,28 @@
 import { blue } from "@ant-design/colors";
+import AdvSearchBox from "@components/AdvSearchBox";
+import AdvSearchBtn from "@components/AdvSearchBtn";
 import Logo from "@components/Logo";
-import { directSearch, toRepo } from "@utils";
-import { Button, Input, Layout, Space, Typography } from "antd";
+import ProjTitle from "@components/ProjTitle";
+import { Input, Layout, Space } from "antd";
 import { useEffect, useState } from "react";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 const { Header, Content } = Layout;
 const { Search } = Input;
-const { Title } = Typography;
 
-const HomePage: () => JSX.Element = (): JSX.Element => {
+const Home: () => JSX.Element = (): JSX.Element => {
     useEffect((): void => {
         document.title = "首页";
     });
+
     const [keyword, setKeyword] = useState("");
-    const onSearch: (value: string) => void = (value: string): void => {
-        directSearch(value);
-        setKeyword("");
+
+    const navigate: NavigateFunction = useNavigate();
+
+    const onSearch: () => Promise<void> = async (): Promise<void> => {
+        const url: string = `/api?query=${keyword}`;
+        // Todo: 搜索
+        navigate(url);
     };
 
     const onChange: (event: any) => void = (event: any): void => {
@@ -31,19 +38,10 @@ const HomePage: () => JSX.Element = (): JSX.Element => {
                             className="w-7 align-middle"
                             customcolor={blue[0]}
                         />
-                        <Title
-                            className="table-cell align-baseline max-sm:hidden cursor-pointer"
-                            style={{
-                                color: blue[0],
-                            }}
-                            level={2}
-                            onClick={toRepo}
-                        >
-                            zLib Searcher
-                        </Title>
+                        <ProjTitle className="max-sm:hidden" />
                     </Space>
 
-                    <Button type="primary">高级检索</Button>
+                    <AdvSearchBtn />
                 </Space>
             </Header>
 
@@ -61,8 +59,10 @@ const HomePage: () => JSX.Element = (): JSX.Element => {
                     onSearch={onSearch}
                 />
             </Content>
+
+            <AdvSearchBox />
         </>
     );
 };
 
-export default HomePage;
+export default Home;
