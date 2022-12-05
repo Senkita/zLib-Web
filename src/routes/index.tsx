@@ -12,6 +12,7 @@ const routes: RouteObject[] = [
     {
         path: "/",
         element: <RootLayout />,
+        errorElement: <NotFound />,
         children: [
             {
                 index: true,

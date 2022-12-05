@@ -23,7 +23,8 @@ export default defineConfig({
             "/api": {
                 target: "http://BACKEND_DOAMIN/search",
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, "/search"),
+                secure: false,
+                rewrite: (path: string): string => path.replace(/^\/api/, ""),
             },
         },
     },

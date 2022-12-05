@@ -1,4 +1,3 @@
-import { blue } from "@ant-design/colors";
 import { toRepo } from "@utils";
 import { Typography } from "antd";
 
@@ -6,11 +5,12 @@ const { Title } = Typography;
 
 const ProjTitle: (props: any) => JSX.Element = (props: any): JSX.Element => {
     const { className } = props;
+
     return (
         <Title
-            className={`table-cell align-baseline cursor-pointer ${className}`}
+            className={`table-cell cursor-pointer ${className}`}
             style={{
-                color: blue[0],
+                color: "#fff",
             }}
             level={2}
             onClick={toRepo}

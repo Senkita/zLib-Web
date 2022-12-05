@@ -1,4 +1,4 @@
-import { Layout, Typography } from "antd";
+import { Divider, Layout, Typography } from "antd";
 
 const { Footer } = Layout;
 const { Text, Link } = Typography;
@@ -14,7 +14,9 @@ const Copyright: () => JSX.Element = (): JSX.Element => {
     return (
         <Footer className="text-center">
             <Text type="secondary">
-                Copyright &copy; {year} | Powered by{" "}
+                Copyright &copy; {year}
+                <Divider type="vertical" />
+                Powered by{" "}
                 <Link href="https://github.com/Senkita" target="_blank">
                     Senkita
                 </Link>
