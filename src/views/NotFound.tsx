@@ -1,14 +1,10 @@
-import Copyright from "@components/Copyright";
-import Logo from "@components/Logo";
-import ProjTitle from "@components/ProjTitle";
-import ThemeSwitch from "@components/ThemeSwitch";
 import ToHomeBtn from "@components/ToHomeBtn";
-import { minWidth } from "@intf";
+import Topbar from "@components/Topbar";
 import { isHidden } from "@utils";
-import { Layout, Result, Space } from "antd";
+import { Layout, Result } from "antd";
 import { useEffect } from "react";
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 /**
  * 未定义路由
@@ -16,23 +12,11 @@ const { Header, Content } = Layout;
  * @return {*}  {JSX.Element}
  */
 const NotFound: () => JSX.Element = (): JSX.Element => {
-    useEffect((): void => isHidden("Oops!"));
+    useEffect((): void => isHidden("Oops!"), []);
 
     return (
-        <Layout
-            className="h-screen min-h-fit"
-            style={{
-                minWidth: minWidth,
-            }}
-        >
-            <Header className="max-sm:justify-center max-sm:flex">
-                <Space>
-                    <Logo width="1.75rem" color="#fff" />
-                    <ProjTitle />
-
-                    <ThemeSwitch />
-                </Space>
-            </Header>
+        <>
+            <Topbar page="NotFound" />
 
             <Content>
                 <Result
@@ -41,9 +25,7 @@ const NotFound: () => JSX.Element = (): JSX.Element => {
                     extra={[<ToHomeBtn key="toHome" />]}
                 />
             </Content>
-
-            <Copyright />
-        </Layout>
+        </>
     );
 };
 

@@ -1,8 +1,13 @@
 import Icon from "@ant-design/icons";
 import sun from "@images/sun";
 
-const LightIcon: (props: any) => JSX.Element = (props: any): JSX.Element => (
-    <Icon component={sun} {...props} />
+/**
+ * 亮色主题图标
+ *
+ * @return {*}  {JSX.Element}
+ */
+const LightIcon: () => JSX.Element = (): JSX.Element => (
+    <Icon component={sun} />
 );
 
 export default LightIcon;

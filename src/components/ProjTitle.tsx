@@ -1,9 +1,18 @@
+import { IProjTitleProps } from "@intf";
 import { toRepo } from "@utils";
 import { Typography } from "antd";
 
 const { Title } = Typography;
 
-const ProjTitle: (props: any) => JSX.Element = (props: any): JSX.Element => {
+/**
+ * 项目名, 点击跳转仓库
+ *
+ * @param {IProjTitleProps} props
+ * @return {*}  {JSX.Element}
+ */
+const ProjTitle: (props: IProjTitleProps) => JSX.Element = (
+    props: IProjTitleProps
+): JSX.Element => {
     const { className } = props;
 
     return (

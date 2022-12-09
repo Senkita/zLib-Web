@@ -1,66 +1,88 @@
 import { blue } from "@ant-design/colors";
-import AdvSearchBox from "@components/AdvSearchBox";
-import AdvSearchBtn from "@components/AdvSearchBtn";
+import { SearchOutlined } from "@ant-design/icons";
 import Logo from "@components/Logo";
-import ProjTitle from "@components/ProjTitle";
-import ThemeSwitch from "@components/ThemeSwitch";
+import Topbar from "@components/Topbar";
+import { advSearchCtx } from "@ctx";
+import { IEvent } from "@intf";
 import { isHidden } from "@utils";
-import { Input, Layout, Space } from "antd";
-import { useEffect, useState } from "react";
+import { Input, Layout, Tooltip } from "antd";
+import { useContext, useEffect, useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
-const { Header, Content } = Layout;
-const { Search } = Input;
+const { Content } = Layout;
 
+/**
+ * 搜索主页
+ *
+ * @return {*}  {JSX.Element}
+ */
 const Home: () => JSX.Element = (): JSX.Element => {
-    useEffect((): void => isHidden("首页"));
-
-    const [keyword, setKeyword] = useState("");
+    useEffect((): void => isHidden("首页"), []);
 
     const navigate: NavigateFunction = useNavigate();
+    const [keyword, setKeyword] = useState<string>("");
+    const [tipState, setTipState] = useState<boolean>(false);
+    const { advSearchState, setAdvSearchState } = useContext(advSearchCtx);
 
-    const onSearch: () => void = (): void => {
-        const url: string = `/api?limit=3000&query=${keyword}`;
-        fetch(url).then((res: Response): void => console.log(res.json()));
-        // Todo: 搜索
-        // navigate(url);
+    /**
+     * 回车搜索
+     * 1. 如果没有关键词, 则弹出提示
+     * 2. 存在关键词, 则检查是否非空
+     * 3. 如果非空则跳转
+     *
+     */
+    const handleSearch: () => void = (): void => {
+        if (keyword.trim() !== "") {
+            setAdvSearchState({
+                ...advSearchState,
+                keyword: keyword.trim(),
+            });
+            navigate("/search");
+        } else {
+            setKeyword(keyword.trim());
+            setTipState(true);
+        }
     };
 
-    const onChange: (event: any) => void = (event: any): void => {
+    /**
+     * 编辑关键词
+     *
+     * @param {IEvent} event
+     */
+    const changeKeyword: (event: IEvent) => void = (event: IEvent): void => {
+        setTipState(false);
         setKeyword(event.target.value);
     };
 
     return (
         <>
-            <Header>
-                <Space className="flex justify-between">
-                    <Space>
-                        <Logo width="1.75rem" color="#fff" />
-                        <ProjTitle className="max-sm:hidden" />
-
-                        <ThemeSwitch />
-                    </Space>
-
-                    <AdvSearchBtn />
-                </Space>
-            </Header>
+            <Topbar page="Home" />
 
             <Content className="flex flex-col justify-center items-center">
-                <Logo className="mb-4" width="5rem" color={blue.primary} />
+                <Logo className="mb-4" width="6em" color={blue.primary} />
 
-                <Search
-                    className="w-5/6 max-w-xl"
-                    type="primary"
-                    allowClear
-                    enterButton="搜索"
-                    size="large"
-                    value={keyword}
-                    onChange={onChange}
-                    onSearch={onSearch}
-                />
+                <Tooltip
+                    title="请输入关键词"
+                    placement="bottomLeft"
+                    open={tipState}
+                    onOpenChange={(visible: boolean): void => {
+                        if (!visible) {
+                            setTipState(visible);
+                        }
+                    }}
+                >
+                    <Input
+                        className="w-5/6 max-w-xl"
+                        type="primary"
+                        allowClear
+                        size="large"
+                        addonBefore={<SearchOutlined />}
+                        value={keyword}
+                        onChange={changeKeyword}
+                        onPressEnter={handleSearch}
+                    />
+                </Tooltip>
             </Content>
-
-            <AdvSearchBox />
         </>
     );
 };

@@ -7,9 +7,11 @@ import {
 } from "@ant-design/icons";
 import ExtSelect from "@components/ExtSelect";
 import { advSearchCtx, bookCtx } from "@ctx";
-import { minWidth } from "@intf";
-import { Col, Input, Modal, Row } from "antd";
-import { useContext } from "react";
+import { IBookState, IEvent, MIN_WIDTH } from "@intf";
+import { initBookState } from "@reducers";
+import { Col, Input, Modal, Row, Tooltip } from "antd";
+import { useContext, useState } from "react";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 /**
  * 高级检索弹出框
@@ -17,17 +19,37 @@ import { useContext } from "react";
  * @return {*}  {JSX.Element}
  */
 const AdvSearchBox: () => JSX.Element = (): JSX.Element => {
+    const navigate: NavigateFunction = useNavigate();
     const { bookState, setBookState } = useContext(bookCtx);
-
     const { advSearchState, setAdvSearchState } = useContext(advSearchCtx);
+    const [tipState, setTipState] = useState<boolean>(false);
 
     /**
      * 点击搜索按钮
-     *
+     * 1. 遍历输入框的值组合关键词
+     * 2. 如果没有输入, 则弹出提示
      */
     const clickSearch: () => void = (): void => {
-        setAdvSearchState({ visible: false });
-        console.log(bookState);
+        let keyword: string = "";
+
+        for (const [key, value] of Object.entries(bookState)) {
+            if (value !== "") {
+                keyword += `${key}:${value} `;
+            }
+        }
+
+        if (keyword !== "") {
+            setAdvSearchState({
+                visible: false,
+                keyword: keyword.trim(),
+            });
+
+            setBookState(initBookState);
+
+            navigate("/search");
+        } else {
+            setTipState(true);
+        }
     };
 
     /**
@@ -35,61 +57,32 @@ const AdvSearchBox: () => JSX.Element = (): JSX.Element => {
      *
      */
     const clickCancel: () => void = (): void => {
+        setTipState(false);
         setAdvSearchState({ visible: false });
     };
 
     /**
-     * 当输入框值被修改
+     * 修改输入值
      *
-     * @param {*} event
-     * @param {string} propName
-     * @return {*}  {void}
+     * @param {IEvent} event
+     * @param {keyof IBookState} propName
      */
-    const handleChangeVal: (event: any, propName: string) => void = (
-        event: any,
-        propName: string
+    const changeVal: (event: IEvent, propName: keyof IBookState) => void = (
+        event: IEvent,
+        propName: keyof IBookState
     ): void => {
-        switch (propName) {
-            case "title":
-                setBookState({
-                    ...bookState,
-                    title: event.target.value,
-                });
-                return;
-            case "author":
-                setBookState({
-                    ...bookState,
-                    author: event.target.value,
-                });
-                return;
-            case "publisher":
-                setBookState({
-                    ...bookState,
-                    publisher: event.target.value,
-                });
-                return;
-            case "language":
-                setBookState({
-                    ...bookState,
-                    language: event.target.value,
-                });
-                return;
-            case "isbn":
-                setBookState({
-                    ...bookState,
-                    isbn: event.target.value,
-                });
-                return;
-            default:
-                // Todo:
-                console.error(`没有属性: ${propName}`);
-        }
+        setTipState(false);
+
+        const state: IBookState = bookState;
+        state[propName] = event.target.value;
+
+        setBookState(state);
     };
 
     return (
         <Modal
             style={{
-                minWidth: minWidth,
+                minWidth: MIN_WIDTH,
             }}
             centered
             destroyOnClose
@@ -100,61 +93,81 @@ const AdvSearchBox: () => JSX.Element = (): JSX.Element => {
             onOk={clickSearch}
             onCancel={clickCancel}
         >
-            <Row gutter={[8, 16]}>
-                <Col span={24}>
-                    <Input
-                        placeholder="书名"
-                        prefix={<BookOutlined />}
-                        value={bookState.title}
-                        onChange={(event: any): void =>
-                            handleChangeVal(event, "title")
-                        }
-                        addonAfter={<ExtSelect />}
-                    />
-                </Col>
+            <Tooltip
+                title="请输入关键词"
+                placement="topRight"
+                open={tipState}
+                onOpenChange={(visible: boolean): void => {
+                    if (!visible) {
+                        setTipState(visible);
+                    }
+                }}
+            >
+                <Row gutter={[8, 16]}>
+                    <Col span={24}>
+                        <Input
+                            allowClear
+                            placeholder="书名"
+                            prefix={<BookOutlined />}
+                            value={bookState.title}
+                            onChange={(event: IEvent): void =>
+                                changeVal(event, "title")
+                            }
+                            addonAfter={
+                                <ExtSelect
+                                    closeTip={(): void => setTipState(false)}
+                                />
+                            }
+                        />
+                    </Col>
 
-                <Col span={12}>
-                    <Input
-                        placeholder="作者名"
-                        prefix={<UserOutlined />}
-                        value={bookState.author}
-                        onChange={(event: any): void =>
-                            handleChangeVal(event, "author")
-                        }
-                    />
-                </Col>
-                <Col span={12}>
-                    <Input
-                        placeholder="出版社"
-                        prefix={<BankOutlined />}
-                        value={bookState.publisher}
-                        onChange={(event: any): void =>
-                            handleChangeVal(event, "publisher")
-                        }
-                    />
-                </Col>
+                    <Col span={12}>
+                        <Input
+                            allowClear
+                            placeholder="作者名"
+                            prefix={<UserOutlined />}
+                            value={bookState.author}
+                            onChange={(event: IEvent): void =>
+                                changeVal(event, "author")
+                            }
+                        />
+                    </Col>
+                    <Col span={12}>
+                        <Input
+                            allowClear
+                            placeholder="出版社"
+                            prefix={<BankOutlined />}
+                            value={bookState.publisher}
+                            onChange={(event: IEvent): void =>
+                                changeVal(event, "publisher")
+                            }
+                        />
+                    </Col>
 
-                <Col span={12}>
-                    <Input
-                        placeholder="语言"
-                        prefix={<TranslationOutlined />}
-                        value={bookState.language}
-                        onChange={(event: any): void =>
-                            handleChangeVal(event, "language")
-                        }
-                    />
-                </Col>
-                <Col span={12}>
-                    <Input
-                        placeholder="ISBN"
-                        prefix={<BorderlessTableOutlined />}
-                        value={bookState.isbn}
-                        onChange={(event: any): void =>
-                            handleChangeVal(event, "isbn")
-                        }
-                    />
-                </Col>
-            </Row>
+                    <Col span={12}>
+                        <Input
+                            allowClear
+                            placeholder="语言"
+                            prefix={<TranslationOutlined />}
+                            value={bookState.language}
+                            onChange={(event: IEvent): void =>
+                                changeVal(event, "language")
+                            }
+                        />
+                    </Col>
+                    <Col span={12}>
+                        <Input
+                            allowClear
+                            placeholder="ISBN"
+                            prefix={<BorderlessTableOutlined />}
+                            value={bookState.isbn}
+                            onChange={(event: IEvent): void =>
+                                changeVal(event, "isbn")
+                            }
+                        />
+                    </Col>
+                </Row>
+            </Tooltip>
         </Modal>
     );
 };

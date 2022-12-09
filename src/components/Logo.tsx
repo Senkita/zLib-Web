@@ -1,13 +1,25 @@
 import Icon from "@ant-design/icons";
 import zLib from "@images/zLib";
+import { ILogoProps } from "@intf";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
-const Logo: (props: any) => JSX.Element = (props: any): JSX.Element => {
+/**
+ * zLib图标, 点击返回首页
+ *
+ * @param {ILogoProps} props
+ * @return {*}  {JSX.Element}
+ */
+const Logo: (props: ILogoProps) => JSX.Element = (
+    props: ILogoProps
+): JSX.Element => {
     const { width, color, className } = props;
+    const navigate: NavigateFunction = useNavigate();
 
     return (
         <Icon
-            className={`block ${className}`}
+            className={`block cursor-pointer ${className}`}
             component={(): JSX.Element => zLib({ width, color })}
+            onClick={(): void => navigate("/")}
         />
     );
 };

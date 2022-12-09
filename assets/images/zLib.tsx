@@ -1,4 +1,8 @@
-const zLib: (props: any) => JSX.Element = (props: any): JSX.Element => {
+import { IZLibProps } from "@intf";
+
+const zLib: (props: IZLibProps) => JSX.Element = (
+    props: IZLibProps
+): JSX.Element => {
     const { width, color } = props;
 
     return (

@@ -1,5 +1,6 @@
 import Home from "@views/Home";
 import NotFound from "@views/NotFound";
+import Result from "@views/Result";
 import RootLayout from "@views/RootLayout";
 import { RouteObject, useRoutes } from "react-router-dom";
 
@@ -18,11 +19,15 @@ const routes: RouteObject[] = [
                 index: true,
                 element: <Home />,
             },
+            {
+                path: "/search",
+                element: <Result />,
+            },
+            {
+                path: "*",
+                element: <NotFound />,
+            },
         ],
-    },
-    {
-        path: "*",
-        element: <NotFound />,
     },
 ];
 

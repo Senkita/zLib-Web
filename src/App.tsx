@@ -8,6 +8,7 @@ import {
     themeReducer,
 } from "@reducers";
 import RouteTable from "@routes";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConfigProvider, theme } from "antd";
 import { useReducer } from "react";
 import { BrowserRouter } from "react-router-dom";
@@ -15,6 +16,7 @@ import { BrowserRouter } from "react-router-dom";
 const { defaultAlgorithm, darkAlgorithm } = theme;
 
 const App: () => JSX.Element = (): JSX.Element => {
+    const queryClient = new QueryClient();
     const [themeState, setThemeState] = useReducer(
         themeReducer,
         initThemeState
@@ -23,7 +25,6 @@ const App: () => JSX.Element = (): JSX.Element => {
         advSearchReducer,
         initAdvSearchState
     );
-
     const [bookState, setBookState] = useReducer(bookReducer, initBookState);
 
     return (
@@ -35,20 +36,22 @@ const App: () => JSX.Element = (): JSX.Element => {
             }}
         >
             <themeCtx.Provider value={{ themeState, setThemeState }}>
-                <advSearchCtx.Provider
-                    value={{ advSearchState, setAdvSearchState }}
-                >
-                    <bookCtx.Provider
-                        value={{
-                            bookState,
-                            setBookState,
-                        }}
+                <QueryClientProvider client={queryClient}>
+                    <advSearchCtx.Provider
+                        value={{ advSearchState, setAdvSearchState }}
                     >
-                        <BrowserRouter>
-                            <RouteTable />
-                        </BrowserRouter>
-                    </bookCtx.Provider>
-                </advSearchCtx.Provider>
+                        <bookCtx.Provider
+                            value={{
+                                bookState,
+                                setBookState,
+                            }}
+                        >
+                            <BrowserRouter>
+                                <RouteTable />
+                            </BrowserRouter>
+                        </bookCtx.Provider>
+                    </advSearchCtx.Provider>
+                </QueryClientProvider>
             </themeCtx.Provider>
         </ConfigProvider>
     );

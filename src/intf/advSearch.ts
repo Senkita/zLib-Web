@@ -5,7 +5,7 @@ import { Dispatch } from "react";
  *
  * @interface IExtensionOpt
  */
-interface IExtensionOpt {
+interface IExtOpt {
     value: string;
     label: string;
 }
@@ -15,7 +15,7 @@ interface IExtensionOpt {
  *
  *  @type {*}
  */
-const extensionOpt: Array<IExtensionOpt> = [
+const EXT_OPT: Array<IExtOpt> = [
     {
         value: "azw3",
         label: ".azw3",
@@ -45,10 +45,11 @@ const extensionOpt: Array<IExtensionOpt> = [
  */
 interface IAdvSearchState {
     visible: boolean;
+    keyword: string;
 }
 
 /**
- * 高级检索弹出框上下文
+ * 高级检索弹出框上下文类型
  *
  * @interface IAdvSearchCtx
  */
@@ -57,5 +58,5 @@ interface IAdvSearchCtx {
     setAdvSearchState: Dispatch<Partial<IAdvSearchState>>;
 }
 
-export { extensionOpt };
-export type { IAdvSearchState, IAdvSearchCtx };
+export { EXT_OPT };
+export type { IAdvSearchCtx, IAdvSearchState };

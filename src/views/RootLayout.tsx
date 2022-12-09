@@ -1,7 +1,7 @@
 import Copyright from "@components/Copyright";
+import { MIN_WIDTH } from "@intf";
 import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
-import { minWidth } from "@intf";
 
 /**
  * 根布局页面
@@ -13,7 +13,7 @@ const RootLayout: () => JSX.Element = (): JSX.Element => {
         <Layout
             className="h-screen min-h-fit"
             style={{
-                minWidth: minWidth,
+                minWidth: MIN_WIDTH,
             }}
         >
             <Outlet />

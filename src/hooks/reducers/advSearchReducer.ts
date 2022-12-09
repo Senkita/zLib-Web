@@ -7,6 +7,7 @@ import { IAdvSearchState } from "@intf";
  */
 const initAdvSearchState: IAdvSearchState = {
     visible: false,
+    keyword: "",
 };
 
 /**

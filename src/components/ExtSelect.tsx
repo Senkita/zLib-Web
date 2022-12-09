@@ -1,15 +1,19 @@
 import { FileTextOutlined } from "@ant-design/icons";
 import { bookCtx } from "@ctx";
-import { extensionOpt } from "@intf";
+import { EXT_OPT, IExtSelectProps } from "@intf";
 import { Select } from "antd";
 import { useContext } from "react";
 
 /**
- * 文件后缀名
+ * 文件后缀名选择
  *
+ * @param {*} props
  * @return {*}  {JSX.Element}
  */
-const ExtSelect: () => JSX.Element = (): JSX.Element => {
+const ExtSelect: (props: IExtSelectProps) => JSX.Element = (
+    props: IExtSelectProps
+): JSX.Element => {
+    const { closeTip } = props;
     const { bookState, setBookState } = useContext(bookCtx);
 
     /**
@@ -18,6 +22,7 @@ const ExtSelect: () => JSX.Element = (): JSX.Element => {
      * @param {string} value
      */
     const selectOpt: (value: string) => void = (value: string): void => {
+        closeTip();
         setBookState({
             ...bookState,
             extension: value,
@@ -45,7 +50,7 @@ const ExtSelect: () => JSX.Element = (): JSX.Element => {
                     <FileTextOutlined /> 扩展名
                 </>
             }
-            options={extensionOpt}
+            options={EXT_OPT}
             onSelect={selectOpt}
             onClear={clearSelect}
         />
