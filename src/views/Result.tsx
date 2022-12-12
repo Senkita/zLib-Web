@@ -1,8 +1,10 @@
 import ResultTable from "@components/ResultTable";
 import Topbar from "@components/Topbar";
 import { isHidden } from "@utils";
-import { Content } from "antd/es/layout/layout";
+import { Layout } from "antd/es/index";
 import { useEffect } from "react";
+
+const { Content } = Layout;
 
 const Result: () => JSX.Element = (): JSX.Element => {
     useEffect((): void => {

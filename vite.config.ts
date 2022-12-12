@@ -19,12 +19,23 @@ export default defineConfig({
         },
     },
     server: {
+        host: "0.0.0.0",
         proxy: {
             "/api": {
-                target: "http://BACKEND_DOAMIN/search",
+                target: "http://BACKEND_DOMAIN/search",
                 changeOrigin: true,
                 secure: false,
                 rewrite: (path: string): string => path.replace(/^\/api/, ""),
+            },
+        },
+    },
+    build: {
+        chunkSizeWarningLimit: 1000,
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    antd: ["antd"],
+                },
             },
         },
     },

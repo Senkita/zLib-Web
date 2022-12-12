@@ -7,10 +7,10 @@ import { advSearchCtx } from "@ctx";
 import { IEvent, ITopbarProps, MIN_WIDTH } from "@intf";
 import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import { getBooks } from "@utils";
-import { Input, Space } from "antd";
-import { Header } from "antd/es/layout/layout";
+import { Input, Layout, Space } from "antd";
 import { useContext, useEffect, useMemo, useState } from "react";
 
+const { Header } = Layout;
 const { Search } = Input;
 
 /**
@@ -74,7 +74,11 @@ const Topbar: (props: ITopbarProps) => JSX.Element = (
                         page === "NotFound" ? "" : "flex justify-between"
                     }
                 >
-                    <Space>
+                    <Space
+                        className={
+                            page === "NotFound" ? "flex justify-between" : ""
+                        }
+                    >
                         <Logo width="2.15em" color="#fff" />
                         {page === "Result" ? (
                             <Search

@@ -8,7 +8,6 @@ import {
 import ExtSelect from "@components/ExtSelect";
 import { advSearchCtx, bookCtx } from "@ctx";
 import { IBookState, IEvent, MIN_WIDTH } from "@intf";
-import { initBookState } from "@reducers";
 import { Col, Input, Modal, Row, Tooltip } from "antd";
 import { useContext, useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
@@ -44,7 +43,15 @@ const AdvSearchBox: () => JSX.Element = (): JSX.Element => {
                 keyword: keyword.trim(),
             });
 
-            setBookState(initBookState);
+            // Fixed: 直接使用initBookState出现author: "y"
+            setBookState({
+                title: "",
+                extension: "",
+                author: "",
+                publisher: "",
+                language: "",
+                isbn: "",
+            });
 
             navigate("/search");
         } else {

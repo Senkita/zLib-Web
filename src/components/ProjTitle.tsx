@@ -20,6 +20,7 @@ const ProjTitle: (props: IProjTitleProps) => JSX.Element = (
             className={`table-cell cursor-pointer ${className}`}
             style={{
                 color: "#fff",
+                minWidth: "200px",
             }}
             level={2}
             onClick={toRepo}
