@@ -14,6 +14,7 @@ export default defineConfig({
             "@ctx": resolve(__dirname, "src/hooks/ctx"),
             "@reducers": resolve(__dirname, "src/hooks/reducers"),
             "@intf": resolve(__dirname, "src/intf"),
+            "@consts": resolve(__dirname, "src/constants"),
             "@views": resolve(__dirname, "src/views"),
             "@components": resolve(__dirname, "src/components"),
         },

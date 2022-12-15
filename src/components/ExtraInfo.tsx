@@ -1,4 +1,5 @@
-import { DomainName, IExtraInfoProps } from "@intf";
+import { DomainName } from "@consts";
+import { IExtraInfoProps } from "@intf";
 import { downloadBook } from "@utils";
 import { Button, Descriptions } from "antd";
 

@@ -3,8 +3,9 @@ import AdvSearchBtn from "@components/AdvSearchBtn";
 import Logo from "@components/Logo";
 import ProjTitle from "@components/ProjTitle";
 import ThemeSwitch from "@components/ThemeSwitch";
+import { MIN_WIDTH } from "@consts";
 import { advSearchCtx } from "@ctx";
-import { IEvent, ITopbarProps, MIN_WIDTH } from "@intf";
+import { IEvent, ITopbarProps } from "@intf";
 import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import { getBooks } from "@utils";
 import { Input, Layout, Space } from "antd";
@@ -60,6 +61,8 @@ const Topbar: (props: ITopbarProps) => JSX.Element = (
         setKeyword(event.target.value);
     };
 
+    const SearchBoxMinWidth: number = parseInt(MIN_WIDTH) / 2;
+
     return (
         <>
             <Header
@@ -71,12 +74,16 @@ const Topbar: (props: ITopbarProps) => JSX.Element = (
             >
                 <Space
                     className={
-                        page === "NotFound" ? "" : "flex justify-between"
+                        page === "NotFound"
+                            ? ""
+                            : "flex justify-between items-center h-full max-sm:justify-center"
                     }
                 >
                     <Space
                         className={
-                            page === "NotFound" ? "flex justify-between" : ""
+                            page === "NotFound"
+                                ? "flex justify-between"
+                                : "align-bottom"
                         }
                     >
                         <Logo width="2.15em" color="#fff" />
@@ -84,7 +91,7 @@ const Topbar: (props: ITopbarProps) => JSX.Element = (
                             <Search
                                 className="block"
                                 style={{
-                                    minWidth: MIN_WIDTH,
+                                    minWidth: SearchBoxMinWidth,
                                 }}
                                 allowClear
                                 size="large"

@@ -11,34 +11,6 @@ interface IExtOpt {
 }
 
 /**
- * 扩展名选项列表
- *
- *  @type {*}
- */
-const EXT_OPT: Array<IExtOpt> = [
-    {
-        value: "azw3",
-        label: ".azw3",
-    },
-    {
-        value: "epub",
-        label: ".epub",
-    },
-    {
-        value: "mobi",
-        label: ".mobi",
-    },
-    {
-        value: "pdf",
-        label: ".pdf",
-    },
-    {
-        value: "txt",
-        label: ".txt",
-    },
-];
-
-/**
  * 高级检索弹出框状态
  *
  * @interface IAdvSearchState
@@ -58,5 +30,4 @@ interface IAdvSearchCtx {
     setAdvSearchState: Dispatch<Partial<IAdvSearchState>>;
 }
 
-export { EXT_OPT };
-export type { IAdvSearchCtx, IAdvSearchState };
+export type { IAdvSearchCtx, IAdvSearchState, IExtOpt };

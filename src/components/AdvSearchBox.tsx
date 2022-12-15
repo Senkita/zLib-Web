@@ -6,8 +6,9 @@ import {
     UserOutlined,
 } from "@ant-design/icons";
 import ExtSelect from "@components/ExtSelect";
+import { MIN_WIDTH } from "@consts";
 import { advSearchCtx, bookCtx } from "@ctx";
-import { IBookState, IEvent, MIN_WIDTH } from "@intf";
+import { IBookState, IEvent } from "@intf";
 import { Col, Input, Modal, Row, Tooltip } from "antd";
 import { useContext, useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
@@ -65,6 +66,16 @@ const AdvSearchBox: () => JSX.Element = (): JSX.Element => {
      */
     const clickCancel: () => void = (): void => {
         setTipState(false);
+
+        setBookState({
+            title: "",
+            extension: "",
+            author: "",
+            publisher: "",
+            language: "",
+            isbn: "",
+        });
+
         setAdvSearchState({ visible: false });
     };
 

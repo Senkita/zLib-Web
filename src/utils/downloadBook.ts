@@ -1,4 +1,5 @@
-import { DomainName, IBook } from "@intf";
+import { DomainName } from "@consts";
+import { IBook } from "@intf";
 
 /**
  * 下载书籍

@@ -24,6 +24,7 @@
             "@ctx": ["src/hooks/ctx"],
             "@reducers": ["src/hooks/reducers"],
             "@intf": ["src/intf"],
+            "@consts": ["src/constants"],
             "@views/*": ["src/views/*"],
             "@components/*": ["src/components/*"]
         }

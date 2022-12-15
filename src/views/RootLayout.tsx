@@ -1,5 +1,5 @@
 import Copyright from "@components/Copyright";
-import { MIN_WIDTH } from "@intf";
+import { MIN_WIDTH } from "@consts";
 import { Layout } from "antd/es/index";
 import { Outlet } from "react-router-dom";
 

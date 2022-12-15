@@ -1,6 +1,7 @@
 import { FileTextOutlined } from "@ant-design/icons";
+import { EXT_OPT } from "@consts";
 import { bookCtx } from "@ctx";
-import { EXT_OPT, IExtSelectProps } from "@intf";
+import { IExtSelectProps } from "@intf";
 import { Select } from "antd";
 import { useContext } from "react";
 
