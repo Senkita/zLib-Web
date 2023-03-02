@@ -30,13 +30,17 @@ const AdvSearchBox: () => JSX.Element = (): JSX.Element => {
      * 2. 如果没有输入, 则弹出提示
      */
     const clickSearch: () => void = (): void => {
-        let keyword: string = "";
+        let obj: { [key: string]: string } = {};
 
         for (const [key, value] of Object.entries(bookState)) {
             if (value !== "") {
-                keyword += `${key}:${value} `;
+                obj[key] = value;
             }
         }
+
+        let keyword: string = Object.keys(obj)
+            .map((key: string): string => key + "=" + obj[key])
+            .join("&");
 
         if (keyword !== "") {
             setAdvSearchState({

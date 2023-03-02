@@ -20,7 +20,7 @@ const Home: () => JSX.Element = (): JSX.Element => {
     useEffect((): void => isHidden("首页"), []);
 
     const navigate: NavigateFunction = useNavigate();
-    const [keyword, setKeyword] = useState<string>("");
+    const [complexVal, setComplexVal] = useState<string>("");
     const [tipState, setTipState] = useState<boolean>(false);
     const { advSearchState, setAdvSearchState } = useContext(advSearchCtx);
 
@@ -32,14 +32,15 @@ const Home: () => JSX.Element = (): JSX.Element => {
      *
      */
     const handleSearch: () => void = (): void => {
-        if (keyword.trim() !== "") {
+        if (complexVal.trim() !== "") {
             setAdvSearchState({
                 ...advSearchState,
-                keyword: keyword.trim(),
+                keyword: complexVal.trim(),
             });
+
             navigate("/search");
         } else {
-            setKeyword(keyword.trim());
+            setComplexVal(complexVal.trim());
             setTipState(true);
         }
     };
@@ -51,7 +52,7 @@ const Home: () => JSX.Element = (): JSX.Element => {
      */
     const changeKeyword: (event: IEvent) => void = (event: IEvent): void => {
         setTipState(false);
-        setKeyword(event.target.value);
+        setComplexVal(event.target.value);
     };
 
     return (
@@ -77,7 +78,7 @@ const Home: () => JSX.Element = (): JSX.Element => {
                         allowClear
                         size="large"
                         addonBefore={<SearchOutlined />}
-                        value={keyword}
+                        value={complexVal}
                         onChange={changeKeyword}
                         onPressEnter={handleSearch}
                     />

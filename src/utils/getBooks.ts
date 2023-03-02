@@ -17,11 +17,33 @@ const getBooks: ({ queryKey }: IGetBooksParam) => Promise<IBooks> = async ({
         ? `${import.meta.env.VITE_BACKEND_URL}`
         : "/api";
 
-    const url: string = `${BACNEND_URL}?limit=100000&query=${keyword}`;
+    let url: string = `${BACNEND_URL}?limit=100000`;
 
-    const res: Response = await fetch(url);
+    try {
+        keyword.split("&").forEach((item: string): void => {
+            const key: string = item.split("=")[0];
+            if (
+                ![
+                    "title",
+                    "extension",
+                    "author",
+                    "publisher",
+                    "language",
+                    "isbn",
+                ].includes(key)
+            ) {
+                throw Error();
+            }
+        });
 
-    return await res.json();
+        url = `${url}&${keyword}`;
+    } catch (e) {
+        url = `${url}&query=${keyword}`;
+    } finally {
+        const res: Response = await fetch(url);
+
+        return await res.json();
+    }
 };
 
 export default getBooks;
