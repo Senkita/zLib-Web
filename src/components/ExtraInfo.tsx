@@ -1,4 +1,3 @@
-import { DomainName } from "@consts";
 import { IExtraInfoProps } from "@intf";
 import { downloadBook } from "@utils";
 import { Button, Descriptions } from "antd";
@@ -29,30 +28,15 @@ const ExtraInfo: (props: IExtraInfoProps) => JSX.Element = (
             </Item>
             <Item label="ISBN">{isbn}</Item>
             <Item label="IPFS CID">{ipfs_cid}</Item>
-            <Item label="下载链接">
-                <Button
-                    onClick={(): void =>
-                        downloadBook(DomainName.Cloudflare, record)
-                    }
-                >
-                    cloudflare-ipfs.com
-                </Button>
-                <Button
-                    onClick={(): void => downloadBook(DomainName.Dweb, record)}
-                >
-                    dweb.link
-                </Button>
-                <Button
-                    onClick={(): void => downloadBook(DomainName.Ipfs, record)}
-                >
-                    ipfs.io
-                </Button>
-                <Button
-                    onClick={(): void =>
-                        downloadBook(DomainName.Pinata, record)
-                    }
-                >
-                    gateway.pinata.cloud
+            <Item
+                label="下载链接"
+                contentStyle={{
+                    verticalAlign: "center",
+                    textAlign: "center",
+                }}
+            >
+                <Button onClick={(): void => downloadBook(record)}>
+                    IPFS网关节点检测
                 </Button>
             </Item>
         </Descriptions>

@@ -23,7 +23,7 @@ const isHidden: (customTitle: string) => void = (customTitle: string): void => {
  * 打开zLib Searcher仓库页面
  */
 const toRepo: () => void = (): void => {
-    window.open("https://github.com/zu1k/zlib-searcher");
+    window.open("https://github.com/book-searcher-org/book-searcher");
 };
 
 export { downloadBook, getBooks, sorterFn, isHidden, toRepo };

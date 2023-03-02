@@ -14,7 +14,7 @@ const Copyright: () => JSX.Element = (): JSX.Element => {
     return (
         <Footer className="text-center">
             <Text type="secondary">
-                Copyright &copy; {year}
+                Copyright &copy; 2022 - {year}
                 <Divider type="vertical" />
                 Powered by{" "}
                 <Link href="https://github.com/Senkita" target="_blank">
