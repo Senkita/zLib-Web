@@ -11,7 +11,7 @@ import { Outlet } from "react-router-dom";
 const RootLayout: () => JSX.Element = (): JSX.Element => {
     return (
         <Layout
-            className="h-screen min-h-fit"
+            className="h-auto min-h-screen"
             style={{
                 minWidth: MIN_WIDTH,
             }}
