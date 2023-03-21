@@ -22,15 +22,19 @@
 
 2. 替换
 
+    > ⚠️ [原仓库](https://github.com/book-searcher-org/book-searcher)只有`master`分支，不存在开发分支，所有实时改动都直接反映在主分支上，需手动切换至对应[Tag](https://github.com/book-searcher-org/book-searcher/tags)。
+
     i. 将打包好的`dist/`替换掉[原仓库](https://github.com/book-searcher-org/book-searcher)`frontend/`下的内容
 
-    ii. 替换[Dockerfile](Dockerfile)
+    ii. 替换[Dockerfile](Dockerfile)和[docker-compose.yml](docker-compose.yml)
 
 3. 部署
 
     ```bash
-    docker build . -t zlib-searcher --no-cache
+    docker compose up # if you use docker-compose
 
+    # if you use docker
+    docker build . -t zlib-searcher --no-cache
     docker run -d -p 7070:7070 -v "/data/index:/index:Z" --restart=always --name "zLib-Searcher" zlib-searcher
     ```
 
