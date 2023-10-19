@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+    zlib-searcher:
+        build: .
+        ports:
+            - "7070:7070"
+        volumes:
+            - "/data/index:/index:Z"
+        restart: always
+        container_name: zLib-Searcher
